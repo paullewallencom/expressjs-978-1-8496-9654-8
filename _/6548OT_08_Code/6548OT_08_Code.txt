@@ -1,0 +1,73 @@
+/* ----------------------------------------------------------------- */
+
+{  development: {    db_host: 'locahost',    db_user: 'dev',    db_padd: 'passm3'  },  production: {    db_host: '192.168.10.12',    db_user: 'dbuser1',    db_padd: '0lulwu7'  }}
+
+/* ----------------------------------------------------------------- */
+
+var http = require('http');var express = require('express');var app = express();app.get('/', function (req, res) {  // A resource-intensive operation  var a = [];  for (var i = 0; i < 100000; i++) { a.push(i); }      // A large chunk of data  res.send(a.toString());});http.createServer(app).listen(3000, function() {  console.log('Express app started');});
+
+/* ----------------------------------------------------------------- */
+
+var cluster = require('cluster');// Master process - starts the workersif (cluster.isMaster) {    var cpu_count = require('os').cpus().length;  // Create a worker process for each core  require('os').cpus().forEach(function() {    // Start a worker process    cluster.fork();  });  // In case a worker dies, a new one should be started  cluster.on('exit', function (worker, code, signal) {    cluster.fork();  });}// Code for the worker processes to executeelse {  var worker_id = 'Worker' + cluster.worker.id;  var http = require('http');  var express = require('express');  var app = express();  app.get('/', function (req, res) {    // An resource-intensive operation    var a = [];    for (var i = 0; i < 100000; i++) { a.push(i); }          // A large chunk of data    res.send(a.toString());  });  // Start the app  http.createServer(app).listen(3000, function() {    console.log('Express app started by %s', worker_id);  });}
+
+/* ----------------------------------------------------------------- */
+
+var http = require('http');var express = require('express');var app = express();// Variable to track the status of the servervar closed = false;app.get('/', function (req, res) {  // First request to the server  if (!closed) {    // Close the server - no more new connections    server.close();    // Respond to the request    res.send('First request');    closed = true;  }  // Message for Kept alive connections  else {    res.send('Server shutting down ...');  }  // Shutdown the server in 5 secs  setTimeout(function() {    process.exit();  }, 5000);});// Get the instance of the web server objectvar server = http.createServer(app).listen(3000, function() {  console.log('Express app started');});
+
+/* ----------------------------------------------------------------- */
+
+var http = require('http');var express = require('express');var app = express();app.get('/', function (req, res) {  // Error will be caught  get_data();});var server = http.createServer(app).listen(3000, function() {  console.log('Express app started');});
+
+/* ----------------------------------------------------------------- */
+
+app.get('/', function (req, res) {  // An async operation which causes an error  process.nextTick(function() {    get_data();  });});
+
+/* ----------------------------------------------------------------- */
+
+process.nextTick(function() {  try {    get_data();  }  catch(err) {    console.log(err);    res.send(500, 'Oops!');  }});
+
+/* ----------------------------------------------------------------- */
+
+process.nextTick(function() {  try {    process.nextTick(function() {      set_data();    });    get_data();  }  catch(err) {    console.log(err);    res.send(500, 'Oops!');  }});
+
+/* ----------------------------------------------------------------- */
+
+var http = require('http');var express = require('express');var app = express();var domain = require('domain');app.get('/', function (req, res) {  // Instantiate a domain  var d = domain.create();  // Domain error handler  d.on('error', function(err) {    // Error stack    console.log(err.stack);    // Other information    console.log(req.ip);    // We still have the object in context    res.send(500, 'Oops!');  });  // Execute the code under this to catch unhandled errors from it  d.run(function() {    // An async operation which will cause a process-level error    process.nextTick(function() {      get_data();    });  });});var server = http.createServer(app).listen(3000, function() {  console.log('Express app started');});
+
+/* ----------------------------------------------------------------- */
+
+// Domain error handlerd.on('error', function(err) {
+
+  // Stop accepting new connections
+  server.close();
+
+  // Perform last-minute cleanup
+  res.send(500);
+
+  // Let the master know the worker has disconnected
+  cluster.worker.disconnect();
+
+  // Terminate the process in 5 seconds
+  setTimeout(function() {
+    // Exit with a failure code
+    process.process.exit(1);
+  }, 5000);
+
+});
+
+/* ----------------------------------------------------------------- */
+
+// A worker reports its disconnectioncluster.on('disconnect', function(worker) {  // For a new worker  cluster.fork();});
+
+/* ----------------------------------------------------------------- */
+
+// Default kill signalprocess.on('SIGTERM', function() {  // Close the server  server.close();  // Log the event  console.log('Terminated at ' + Date.now());  process.exit();});// CTRL+cprocess.on('SIGINT', function() {  // Close the server  server.close();  // Log event  console.log('Terminated from console at ' + Date.now());  process.exit();});
+
+/* ----------------------------------------------------------------- */
+
+description "Daemonized Express App"author "Hack Sparrow"# When to start the processstart on runlevel [2345]# When to stop the processstop on runlevel [016]# The process to startexec sudo -u www-data /usr/local/bin/node /home/captain/projects/example/app.js# Restart the process if it is downrespawn# Limit restart attempt to 10 times within 10 secondsrespawn limit 10 10
+
+/* ----------------------------------------------------------------- */
+
+app.set('trust proxy', true);
+

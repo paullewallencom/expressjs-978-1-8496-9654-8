@@ -1,0 +1,107 @@
+/* ----------------------------------------------------------------- */
+
+app.get('/', function(req, res) {	res.send('welcome');});
+
+/* ----------------------------------------------------------------- */
+
+var http = require('http');var express = require('express');var app = express();// Include the router middlewareapp.use(app.router);// GET request to the root URLapp.get('/', function(req, res) {	res.send('/ GET OK');});// POST request to the root URLapp.post('/', function(req, res) {	res.send('/ POST OK');});// PUT request to the root URLapp.put('/', function(req, res) {	res.send('/ PUT OK');});// PATCH request to the root URLapp.patch('/', function(req, res) {	res.send('/ PATCH OK');});// DELETE request to the root URLapp.delete('/', function(req, res) {	res.send('/ DELETE OK');});// OPTIONS request to the root URLapp.options('/', function(req, res) {	res.send('/ OPTIONS OK');});// M-SEARCH request to the root URLapp['m-search']('/', function(req, res) {	res.send('/ M-SEARCH OK');});// NOTIFY request to the root URLapp.notify('/', function(req, res) {	res.send('/ NOTIFY OK');});// SUBSCRIBE request to the root URLapp.subscribe('/', function(req, res) {	res.send('/ SUBSCRIBE OK');});// UNSUBSCRIBE request to the root URLapp.unsubscribe('/', function(req, res) {	res.send('/ UNSUBSCRIBE OK');});// Start the serverhttp.createServer(app).listen(3000, function() {	console.log('App started');});
+
+/* ----------------------------------------------------------------- */
+
+app.all('/', function(req, res, next) {	res.set('X-Catch-All', 'true');	next();});
+
+/* ----------------------------------------------------------------- */
+
+// Will match /abcdapp.get('/abcd', function(req, res) {	res.send('abcd');});// Will match /acdapp.get('/ab?cd', function(req, res) {	res.send('ab?cd');});// Will match /abbcdapp.get('/ab+cd', function(req, res) {	res.send('ab+cd');});// Will match /abxyzcdapp.get('/ab*cd', function(req, res) {	res.send('ab*cd');});// Will match /abe and /abcdeapp.get('/ab(cd)?e', function(req, res) {	res.send('ab(cd)?e');});
+
+/* ----------------------------------------------------------------- */
+
+app.get('/user/:id', function(req, res) {	res.send('user id: ' + req.params.id);});app.get('/country/:country/state/:state', function(req, res) {	res.send(req.params.country + ', ' + req.params.state);}
+
+/* ----------------------------------------------------------------- */
+
+app.get('/route/:from-:to', function(req, res) {	res.send(req.params.from + ' to ' + req.params.to);});app.get('/file/:name.:ext', function(req, res) {	res.send(req.params.name + '.' + req.params.ext.toLowerCase());});
+
+/* ----------------------------------------------------------------- */
+
+the example below we define a route, which makes the format parameter optional.app.get('/feed/:format?', function(req, res) {	if (req.params.format) { res.send('format: ' + req.params.format); }	else { res.send('default format'); }});
+
+/* ----------------------------------------------------------------- */
+
+app.get(/.+app?le$/, function(req, res) {	res.send('/.+ap?le$/');});
+
+/* ----------------------------------------------------------------- */
+
+app.get(/a/, function(req, res) {	res.send('/a/');});
+
+/* ----------------------------------------------------------------- */
+
+app.get('/abcd', function(req, res) {	res.send('abcd');});app.get('/abc*', function(req, res) {	res.send('abc*');});
+
+/* ----------------------------------------------------------------- */
+
+app.get('/abc*', function(req, res) {	res.send('abc*');});app.get('/abcd', function(req, res) {	res.send('abcd');});
+
+/* ----------------------------------------------------------------- */
+
+app.get('/abc*', function(req, res, next) {	// If the request path is /abcd, don't handle it	if (req.path == '/abcd') { next(); }	else { res.send('abc*'); }});app.get('/abcd', function(req, res) {	res.send('abcd');});
+
+/* ----------------------------------------------------------------- */
+
+app.get('/', function(req, res) {	res.send('welcome');});
+
+/* ----------------------------------------------------------------- */
+
+app.get('/', function(req, res, next) {	next();});
+
+/* ----------------------------------------------------------------- */
+
+app.get('/',		function(req, res, next) {		res.send('one');	},		function(req, res, next) {		res.send('two');	},		function(req, res) {		res.send('three');	});
+
+/* ----------------------------------------------------------------- */
+
+app.get('/',		function(req, res, next) {		res.set('X-One', 'hey!');		next();	},		function(req, res, next) {		res.set('X-Two', 'ho!');		next();	},		function(req, res) {		res.send("Let's go!");	});
+
+/* ----------------------------------------------------------------- */
+
+var one = function(req, res, next) {	res.set('X-One', 'hey!');	next();};var two = function(req, res, next) {	res.set('X-Two', 'ho!');	next();};app.get('/', [one, two], function(req, res) {	res.send("Let's go!");});
+
+/* ----------------------------------------------------------------- */
+
+app.get('/', function(req, res, next) {	res.set('X-One', 'hey!');	next();});app.get('/', function(req, res, next) {	res.set('X-Two', 'ho!');	next();});app.get('/', function(req, res) {	res.send('three');});
+
+/* ----------------------------------------------------------------- */
+
+exports.index = function(req, res){	res.send('welcome');};
+
+/* ----------------------------------------------------------------- */
+
+exports.list = function(req, res){	res.send('Amar, Akbar, Anthony');};
+
+/* ----------------------------------------------------------------- */
+
+var express = require('express');var http = require('http');var app = express();// Load the route handlersvar routes = require('./routes');var user = require('./routes/user');// Add router middleware explicitlyapp.use(app.router);// Routesapp.get('/', routes.index);app.get('/users', user.list);http.createServer(app).listen(3000, function(){	console.log('App started');});
+
+/* ----------------------------------------------------------------- */
+
+// Load the route handlersvar routes = require('./handlers');var user = require('./handlers/user');module.exports = function(app) {	// Define the routes	app.get('/', routes.index);	app.get('/users', user.list);};
+
+/* ----------------------------------------------------------------- */
+
+var http = require('http');var express = require('express');var app = express();// Explicitly add the router middlewareapp.use(app.router);// Pass the Express instance to the routes modulevar routes = require('./routes')(app);http.createServer(app).listen(3000, function() {	console.log('App started');});
+
+/* ----------------------------------------------------------------- */
+
+app.get('/articles/', function(req, res) { … });app.get('/articles/new', function(req, res) { … });app.get('/articles/edit/:id', function(req, res) { … });app.get('/articles/delete/:id', function(req, res) { … });app.get('/articles/2013', function(req, res) { … });app.get('/articles/2013/jan/', function(req, res) { … });app.get('/articles/2013/jan/nodejs', function(req, res) { … });
+
+/* ----------------------------------------------------------------- */
+
+var http = require('http');var express = require('express');// express-namespace should be loaded before app is instantiatedvar namespace = require('express-namespace');var app = express();app.use(app.router);app.namespace('/articles', function() {	app.get('/', function(req, res) {		res.send('index of articles');	});		app.get('/new', function(req, res) {		res.send('new article');	});		app.get('/edit/:id', function(req, res) {		res.send('edit article ' + req.params.id);	});	app.get('/delete/:id', function(req, res) {		res.send('delete article ' + req.params.id);	});		app.get('/2013', function(req, res) {		res.send('articles from 2013');	});		// Namespaces can be nested	app.namespace('/2013/jan', function() {				app.get('/', function(req, res) {			res.send('articles from jan 2013');		});				app.get('/nodejs', function(req, res) {			res.send('articles about Node from jan 2013');		});	});	});http.createServer(app).listen(3000, function() {	console.log('App started');});
+
+/* ----------------------------------------------------------------- */
+
+exports.index = function(req, res) {	res.send('index of users');};exports.new = function(req, res) {	res.send('form for new user');};exports.create = function(req, res) {	res.send('handle form for new user');};exports.show = function(req, res) {	res.send('show user ' + req.params.user);};exports.edit = function(req, res) {	res.send('form to edit user ' + req.params.user);};exports.update = function(req, res) {	res.send('handle form to edit user ' + req.params.user);};exports.destroy = function(req, res) {	res.send('delete user ' + req.params.user);};
+
+/* ----------------------------------------------------------------- */
+
+var http = require('http');var express = require('express');// Load express-resource BEFORE app is instantiatedvar resource = require('express-resource');var app = express();app.use(app.router);// Load the resourceful route handlerapp.resource('users', require('./users.js'));http.createServer(app).listen(3000, function() {	console.log('App started');});

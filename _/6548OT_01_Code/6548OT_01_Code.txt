@@ -1,0 +1,230 @@
+
+var express = require(‘express’);
+var app = new express();
+
+/* ----------------------------------------------------------------- */
+
+var broadcast = function(msg, timeout, callback) {
+    // initiate an async call using a timer
+    setTimeout(function() {
+      // the first message
+      console.log(msg);
+      // execute the callback function
+      callback();
+   }, timeout);
+};
+
+broadcast('Is there anybody out there?', 1000, function() {
+  console.log('Message sent');
+});
+
+/* ----------------------------------------------------------------- */
+
+var name = exports.name = 'Packt';
+var secret = 'zoltan';
+
+exports.lower = function(input) {
+  return input.toLowerCase();
+};
+
+exports.upper = function(input) {
+  return input.toUpperCase();
+};
+
+exports.get_name = function() {
+  return name;
+}
+
+exports.get_secret = function() {
+  return secret;
+}
+
+/* ----------------------------------------------------------------- */
+
+var mod = require('./mymod.js');
+
+console.log(mod.name);
+console.log(mod.lower('APPLE'));
+console.log(mod.upper('mango'));
+console.log(mod.get_name());
+
+/* ----------------------------------------------------------------- */
+
+var secret = 'zoltan';
+
+module.exports = {
+  
+  name: 'Packt',
+  
+  lower: function(input) {
+    return input.toLowerCase();
+  },
+  
+  upper: function(input) {
+    return input.toUpperCase();
+  },
+  
+  get_name: function() {
+    return this.name;
+  },
+
+  get_secret: function() {
+    return secret;
+  }
+};
+
+/* ----------------------------------------------------------------- */
+
+module.exports = function(word) {
+  
+  var reversed = '';
+  
+  var i = word.length - 1;
+  while (i > -1) {
+    var letter = word[i];
+    reversed += letter;
+    i--;
+  }
+  
+  return reversed;
+};
+
+/* ----------------------------------------------------------------- */
+
+var reverse  = require('./reverse.js');
+console.log(reverse('hippopotamus'));
+
+/* ----------------------------------------------------------------- */
+
+{
+  "name": "application-name",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node app"
+  },
+  "dependencies": {
+    "express": "3.2.6",
+    "jade": "*",
+    "stylus": "*"
+  }
+}
+
+/* ----------------------------------------------------------------- */
+
+app.use(function(req, res, next) {
+  console.log('Request from: ' + req.ip);
+  next();
+});
+
+/* ----------------------------------------------------------------- */
+
+// define the middleware
+var forbidder = function(forbidden_day) {
+
+  var days = ['Sunday', 'Monday', 'Tueday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  
+  return function(req, res, next) {
+    
+    // get the current day
+    var day = new Date().getDay();
+    
+    // check if the current day is the forbidden day
+    if (days[day] === forbidden_day) {
+      res.send('No visitors allowed on ' + forbidden_day + 's!');
+    }
+    // call the next middleware
+    else {
+      next();
+    } 
+  }
+};
+
+// use the forbidder middleware
+app.use(forbidder('Wednesday'));
+// the router middleware goes here
+app.use(app.router);
+
+/* ----------------------------------------------------------------- */
+
+module.exports = function(forbidden_day) {
+
+  var days = ['Sunday', 'Monday', 'Tueday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  
+  return function(req, res, next) {
+    
+    // get the current day
+    var day = new Date().getDay();
+    
+    // check if the current day is the forbidden day
+    if (days[day] === forbidden_day) {
+      res.send('No visitors allowed on ' + forbidden_day + 's!');
+    }
+    // call the next middleware
+    else {
+      next();
+    } 
+  }
+};
+
+/* ----------------------------------------------------------------- */
+
+var forbidder = require('./forbidder.js');
+
+/* ----------------------------------------------------------------- */
+
+app.use(forbidder('Wednesday'));
+
+/* ----------------------------------------------------------------- */
+
+var http = require('http');
+var express = require('express');
+var app = express();
+
+app.get('/', function(req, res) {
+  res.send('Welcome!');
+});
+
+app.get('/hello.text', function(req, res) {
+  res.send('Hola!');
+});
+
+app.get('/contact', function(req, res) {
+  res.render('contact');
+});
+
+http.createServer(app).listen(3000, function(){
+  console.log("Express server listening on port " + 3000);
+});
+
+/* ----------------------------------------------------------------- */
+
+module.exports = function(app) {
+  
+  app.get('/', function(req, res) {
+    // Send a plain text response
+    res.send('Welcome!');
+  });
+  
+  app.get('/hello.haha', function(req, res) {
+    // Send a plain text response
+    res.send('Hola!');
+  });
+  
+  app.get('/contact', function(req, res) {
+    // Render a view
+    res.render('contact');
+  });
+};
+
+/* ----------------------------------------------------------------- */
+
+var http = require('http');
+var express = require('express');
+var app = express();
+var routes = require('./routes')(app);
+
+http.createServer(app).listen(3000, function(){
+  console.log("Express server listening on port " + 3000);
+});
+

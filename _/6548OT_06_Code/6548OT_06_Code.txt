@@ -1,0 +1,285 @@
+/* ----------------------------------------------------------------- */
+
+// This is a commentstrong {  color: #999;}
+
+/* ----------------------------------------------------------------- */
+// Braces and semicolons are optionalstrong  color: #999
+
+/* ----------------------------------------------------------------- */
+// Colons are optionalstrong  color #999
+
+/* ----------------------------------------------------------------- */
+strong, b  color: #999
+
+/* ----------------------------------------------------------------- */
+strong,b  color: #999
+
+/* ----------------------------------------------------------------- */
+// Commas are optionalstrongb.important  color: #999
+
+/* ----------------------------------------------------------------- */
+// Indented hierarchy#content  font: 14px Arial  width: 300px  .notice    border: 1px dotted #ccc    border-radius: 3px    padding: 3px  strong    color: #bababa
+
+/* ----------------------------------------------------------------- */
+// A variablewarning-color = #dd0000.warn  color: warning-color#footer .error  color: warning-color
+
+/* ----------------------------------------------------------------- */
+// Programming constructsheaders = 1 2 3 4 5 6pi = 22/7base = 200for h in headers  h{h}    font-size: floor(base / (pi * h))px
+
+/* ----------------------------------------------------------------- */
+// Conditionalsmode = devif mode == dev  .debug    display: blockelse  .debug    display: none
+
+/* ----------------------------------------------------------------- */
+
+app.use(app.router);app.use(require('stylus').middleware('./public'));app.use(express.static('./public'));
+
+/* ----------------------------------------------------------------- */
+
+app.use(require('stylus').middleware({	src: './public,	compress: true}));
+
+/* ----------------------------------------------------------------- */
+
+<link rel="stylesheet" href="/stylesheets/style.css">
+link(rel='stylesheet', href='/stylesheets/style.css')
+
+/* ----------------------------------------------------------------- */
+
+head  :stylus    warning-color = #dd0000    .warn      color: warning-color    #footer .error      color: warning-color
+
+/* ----------------------------------------------------------------- */
+
+#content {  color: #999;  padding: 5px;  box-shadow: 5px 5px 1px #ccc;}
+
+/* ----------------------------------------------------------------- */
+
+#content  color #999  padding 5px  box-shadow 5px 5px 1px #ccc
+
+/* ----------------------------------------------------------------- */
+
+#content  color: #999  padding: 5px  box-shadow: 5px 5px 1px #ccc
+
+/* ----------------------------------------------------------------- */
+
+foo -bar  lul: wut
+
+/* ----------------------------------------------------------------- */
+
+#container  width: 600px  div    padding: 3px  .block    width: 50%    strong      color: #ccc
+
+/* ----------------------------------------------------------------- */
+
+.block  padding: 5px  color: #ccc  strong    color: #555&.special    border: 1px solid #900    padding: 3px&:hover    border-color: #d00
+
+/* ----------------------------------------------------------------- */
+
+@import "common.css"
+
+/* ----------------------------------------------------------------- */
+
+.special	border: 1px solid red
+
+/* ----------------------------------------------------------------- */
+
+@import "special"
+
+/* ----------------------------------------------------------------- */
+
+.special {  border: 1px solid #f00;}
+
+/* ----------------------------------------------------------------- */
+
+.mobile  width: 100%@import "ui"
+
+/* ----------------------------------------------------------------- */
+
+button  padding: 2 5px  font: 12px Tahoma
+
+/* ----------------------------------------------------------------- */
+
+@import "mobile"
+
+/* ----------------------------------------------------------------- */
+
+@import "mobile/ui"@import "mobile/layout"
+
+/* ----------------------------------------------------------------- */
+
+@media print  #header  #footer    display none
+
+/* ----------------------------------------------------------------- */
+
+@media (min-width: 700px)  #info-panel    display: block
+
+/* ----------------------------------------------------------------- */
+
+@media all and (min-width:800px) and (max-width:1023px)  #extra-blogroll, #feedburner-link    display: none
+
+/* ----------------------------------------------------------------- */
+
+@font-face font-family Neo font-style normal src local("Neo Sans"), url(fonts/Neo-Sans.ttf).font-neo font-family Neo
+
+/* ----------------------------------------------------------------- */
+
+@keyframes foo  from    width: 50px  to    width: 100px
+
+/* ----------------------------------------------------------------- */
+
+vendors = official webkit@keyframes bar  from    width: 50px  to    width: 100px
+
+/* ----------------------------------------------------------------- */
+
+.content  padding: 10px  font-size: 14px#message  @extends .content  margin: 5px 0
+
+/* ----------------------------------------------------------------- */
+
+.message  padding: 10px  font: 14px Helvetica  border: 1px solid #eee.warning  @extends .message  border-color: yellow  background: yellow.error  @extends .message  border-color: red  background: red
+
+/* ----------------------------------------------------------------- */
+
+@css {  #container {    color: #333;    padding: 3px;  }}
+/* ----------------------------------------------------------------- */
+
+light_gray = #cccdark_gray = #555bright_red = #f00.block  padding: 5px  color: light_gray  strong    color: dark_gray&:hover    border-color: bright_red
+
+/* ----------------------------------------------------------------- */
+
+@css {  light_gray = #ccc  dark_gray = #555  bright_red = #f00  .block    padding: 5px    color: light_gray    strong      color: dark_gray&:hover      border-color: bright_red}
+
+/* ----------------------------------------------------------------- */
+
+$font-weight = boldnum = 100vendors = moz webkit ms-height = (num/5)px _width = 200
+
+/* ----------------------------------------------------------------- */
+
+fixed-width = 800px$font-weight = boldnum = 100-height = (num/5)px _width = 200font-family = "Comic Sans MS"#content  width: fixed-width  font-weight: $font-weight  height: -height  font-size: (num)px  font-family: font-family  .message    width: (_width)px
+
+/* ----------------------------------------------------------------- */
+
+font-size = 14pxbase-font = font-size Arial#content  font: base-font, sans-serif
+
+/* ----------------------------------------------------------------- */
+
+#content  width: $width$width = 100px#message  width: $width
+
+/* ----------------------------------------------------------------- */
+
+#content  width:800px  height (@width/2)px  margin: 2px 5px  padding: @margin
+
+/* ----------------------------------------------------------------- */
+
+prefix = chan#(prefix)-one  width: 10%
+
+/* ----------------------------------------------------------------- */
+
+prefix = chan#{prefix}-one  width: 20%#{prefix}-two  width: 80%
+
+/* ----------------------------------------------------------------- */
+
+chans = one two threefor chan in chans  #chan-{chan}    width: (floor(100/length(chans)))px
+
+/* ----------------------------------------------------------------- */
+
+.dynamic  width: calc(100% \/ 2)
+
+/* ----------------------------------------------------------------- */
+
+.blocks  height: (20px/2)  width: 60px/3
+
+/* ----------------------------------------------------------------- */
+
+fonts = Times Arial Helvetica
+
+/* ----------------------------------------------------------------- */
+
+fonts = Times Arial Helvetica "Comic Sans MS"
+
+/* ----------------------------------------------------------------- */
+
+fonts = Arial Times Helvetica.funny  font-family: fonts[1]
+
+/* ----------------------------------------------------------------- */
+
+hidden = header footerfor tag in hidden  {tag}    display: none
+
+/* ----------------------------------------------------------------- */
+
+fonts = Times Arial Helveticafor font, i in fonts  h{i+1}    font-family: font
+
+/* ----------------------------------------------------------------- */
+
+font = (Helvetica 10px)
+
+/* ----------------------------------------------------------------- */
+
+font = ("Comic Sans MS" 12px)
+
+/* ----------------------------------------------------------------- */
+
+fonts = (Arial 10px) (Tahoma 12px) (Helvetica 14px)#content  font-family: fonts[2][0]  font-size: fonts[2][1]
+
+/* ----------------------------------------------------------------- */
+
+common-border-radius()  -webkit-border-radius: 5px  -moz-border-radius: 5px  border-radius: 5px#content  width: 100px  common-border-radius()
+
+/* ----------------------------------------------------------------- */
+
+set-font(size, line-height, family=Times)  font: size/line-height family#content  set-font(14px, 15px)#message  set-font(12px, 12px, Arial)
+
+/* ----------------------------------------------------------------- */
+
+set-font(size, line-height, family=Times)  font: size/line-height family#content  set-font: 14px 15px#message  set-font: 12px 12px Arial
+
+/* ----------------------------------------------------------------- */
+
+set-font()  font: arguments#message  set-font: 12px/12px Arial, sans-serif;
+
+/* ----------------------------------------------------------------- */
+
+width(p)  width: (100% - p) #message  width: 10%
+
+/* ----------------------------------------------------------------- */
+
+x-width(p)  x-width: (100% - p) #message  x-width: 10%
+/* ----------------------------------------------------------------- */
+
+get-color(p)  if p > 5    return #f00  else    return #0f0get-font()  return Arial.note  color: get-color(5)  font: 12px get-font()
+
+/* ----------------------------------------------------------------- */
+
+// return keyword is optionalwidth-a()  100px#content  width: width-a()
+
+/* ----------------------------------------------------------------- */
+
+// Styles for .description.description&.error     color: #ff0000 // brightest red  .error      color: #dd0000 // darker red
+
+/* ----------------------------------------------------------------- */
+
+.description // Styles for .description&.error     color: #ff0000 // brightest red  .error      color: #dd0000 // darker red
+
+/* ----------------------------------------------------------------- */
+
+/** This is* a multiline* comment*/
+
+/* ----------------------------------------------------------------- */
+
+h1  font-size: 30px
+
+/* ----------------------------------------------------------------- */
+
+app.use(require('stylus').middleware({	src: __dirname + '/public',	compress: true}));
+
+/* ----------------------------------------------------------------- */
+
+/*!* Copyright © 2013* Hack Sparrow*/h1  font-size: 30px
+
+/* ----------------------------------------------------------------- */
+
+env = developmentbody  if env == development    font-family: Arial  else if env == production      font-family: Helvetica  else    font-family: Times
+
+/* ----------------------------------------------------------------- */
+
+env = developmentunless env == production  body    font-family: Arial
+
+/* ----------------------------------------------------------------- */
+
+env = productionunless env == production  body    font-family: Arial
